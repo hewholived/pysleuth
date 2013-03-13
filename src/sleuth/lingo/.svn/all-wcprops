@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/27/trunk/src/sleuth/lingo
+END
+parser.out
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/7/trunk/src/sleuth/lingo/parser.out
+END
+parser.py
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/14/trunk/src/sleuth/lingo/parser.py
+END
+typecheck.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/27/trunk/src/sleuth/lingo/typecheck.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2/trunk/src/sleuth/lingo/__init__.py
+END
+yacc_parse_tables.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/18/trunk/src/sleuth/lingo/yacc_parse_tables.py
+END
+types.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/17/trunk/src/sleuth/lingo/types.py
+END
+components.py
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/13/trunk/src/sleuth/lingo/components.py
+END

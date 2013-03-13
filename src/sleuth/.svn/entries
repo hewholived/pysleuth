@@ -1,0 +1,83 @@
+10
+
+dir
+27
+https://pysleuth.googlecode.com/svn/trunk/src/sleuth
+https://pysleuth.googlecode.com/svn
+
+
+
+2011-11-04T23:20:09.213529Z
+27
+madhukar.kedlaya@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+709c6c90-8a2b-c5c5-7609-165d08c95a77
+
+evidence
+dir
+
+desk
+dir
+
+__init__.py
+file
+
+
+
+
+2013-03-13T02:03:54.000000Z
+7699d37d285975654332aa96fd0656f8
+2011-01-16T00:11:59.165615Z
+2
+kyletklein@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+201
+
+tracks
+dir
+
+common
+dir
+
+lingo
+dir
+
+hq
+dir
+
+third_party
+dir
+

@@ -1,0 +1,1772 @@
+Created by PLY version 3.3 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     empty -> <empty>
+Rule 2     program -> function_declaration_list command
+Rule 3     function_declaration_list -> function_declaration_list function_declaration
+Rule 4     function_declaration_list -> function_declaration
+Rule 5     function_declaration_list -> empty
+Rule 6     function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition
+Rule 7     function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE
+Rule 8     function_body -> command SEMI command_return
+Rule 9     function_body -> command_return
+Rule 10    function_application -> variable LPAREN variable_list RPAREN
+Rule 11    function_application -> dereferenced_variable LPAREN variable_list RPAREN
+Rule 12    command -> command SEMI command
+Rule 13    command -> variable OP_ASSIGNMENT assignment_rhs
+Rule 14    command -> dereferenced_variable OP_ASSIGNMENT assignment_rhs
+Rule 15    command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+Rule 16    command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+Rule 17    command -> KEYWORD_SKIP
+Rule 18    command -> KEYWORD_INPUT variable
+Rule 19    command_return -> KEYWORD_RETURN variable
+Rule 20    assignment_rhs -> KEYWORD_NEW type
+Rule 21    assignment_rhs -> expression
+Rule 22    assignment_rhs -> referenced_variable
+Rule 23    assignment_rhs -> function_application
+Rule 24    type -> ref_type
+Rule 25    type -> int_type
+Rule 26    type -> bool_type
+Rule 27    ref_type -> KEYWORD_REF type
+Rule 28    int_type -> KEYWORD_INT
+Rule 29    bool_type -> KEYWORD_BOOLEAN
+Rule 30    expression -> variable
+Rule 31    expression -> dereferenced_variable
+Rule 32    expression -> bool
+Rule 33    expression -> number
+Rule 34    expression -> expression operator expression
+Rule 35    expression -> LPAREN expression operator expression RPAREN
+Rule 36    variable_list -> variable_list COMMA variable
+Rule 37    variable_list -> variable
+Rule 38    variable_list -> empty
+Rule 39    variable -> IDENTIFIER
+Rule 40    referenced_variable -> KEYWORD_REF IDENTIFIER
+Rule 41    dereferenced_variable -> OP_DEREF IDENTIFIER
+Rule 42    bool -> KEYWORD_TRUE
+Rule 43    bool -> KEYWORD_FALSE
+Rule 44    number -> NUMBER
+Rule 45    operator -> OP_PLUS
+Rule 46    operator -> OP_MINUS
+Rule 47    operator -> OP_TIMES
+Rule 48    operator -> OP_DIVIDE
+Rule 49    operator -> OP_CMP_LT
+Rule 50    operator -> OP_CMP_EQ
+Rule 51    operator -> OP_CMP_NE
+Rule 52    operator -> OP_CMP_LTE
+Rule 53    operator -> OP_BOOL_AND
+Rule 54    operator -> OP_BOOL_OR
+
+Terminals, with rules where they appear
+
+COMMA                : 36
+IDENTIFIER           : 6 39 40 41
+KEYWORD_BOOLEAN      : 29
+KEYWORD_DEF          : 6
+KEYWORD_DO           : 16
+KEYWORD_ELSE         : 15
+KEYWORD_FALSE        : 43
+KEYWORD_FUN          : 7
+KEYWORD_IF           : 15
+KEYWORD_INPUT        : 18
+KEYWORD_INT          : 28
+KEYWORD_NEW          : 20
+KEYWORD_REF          : 27 40
+KEYWORD_RETURN       : 19
+KEYWORD_SKIP         : 17
+KEYWORD_THEN         : 15
+KEYWORD_TRUE         : 42
+KEYWORD_WHILE        : 16
+LBRACE               : 7 15 15 16
+LPAREN               : 7 10 11 15 16 35
+NUMBER               : 44
+OP_ASSIGNMENT        : 13 14
+OP_BOOL_AND          : 53
+OP_BOOL_OR           : 54
+OP_CMP_EQ            : 6 50
+OP_CMP_LT            : 49
+OP_CMP_LTE           : 52
+OP_CMP_NE            : 51
+OP_DEREF             : 41
+OP_DIVIDE            : 48
+OP_MINUS             : 46
+OP_PLUS              : 45
+OP_TIMES             : 47
+RBRACE               : 7 15 15 16
+RPAREN               : 7 10 11 15 16 35
+SEMI                 : 8 12
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignment_rhs       : 13 14
+bool                 : 32
+bool_type            : 26
+command              : 2 8 12 12 15 15 16
+command_return       : 8 9
+dereferenced_variable : 11 14 31
+empty                : 5 38
+expression           : 15 16 21 34 34 35 35
+function_application : 23
+function_body        : 7
+function_declaration : 3 4
+function_declaration_list : 2 3
+function_definition  : 6
+int_type             : 25
+number               : 33
+operator             : 34 35
+program              : 0
+ref_type             : 24
+referenced_variable  : 22
+type                 : 20 27
+variable             : 10 13 18 19 30 36 37
+variable_list        : 7 10 11 36
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (2) program -> . function_declaration_list command
+    (3) function_declaration_list -> . function_declaration_list function_declaration
+    (4) function_declaration_list -> . function_declaration
+    (5) function_declaration_list -> . empty
+    (6) function_declaration -> . KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition
+    (1) empty -> .
+
+  ! shift/reduce conflict for KEYWORD_DEF resolved as shift
+    KEYWORD_DEF     shift and go to state 3
+    KEYWORD_IF      reduce using rule 1 (empty -> .)
+    KEYWORD_WHILE   reduce using rule 1 (empty -> .)
+    KEYWORD_SKIP    reduce using rule 1 (empty -> .)
+    KEYWORD_INPUT   reduce using rule 1 (empty -> .)
+    IDENTIFIER      reduce using rule 1 (empty -> .)
+    OP_DEREF        reduce using rule 1 (empty -> .)
+
+  ! KEYWORD_DEF     [ reduce using rule 1 (empty -> .) ]
+
+    function_declaration           shift and go to state 1
+    function_declaration_list      shift and go to state 2
+    program                        shift and go to state 4
+    empty                          shift and go to state 5
+
+state 1
+
+    (4) function_declaration_list -> function_declaration .
+
+    KEYWORD_IF      reduce using rule 4 (function_declaration_list -> function_declaration .)
+    KEYWORD_WHILE   reduce using rule 4 (function_declaration_list -> function_declaration .)
+    KEYWORD_SKIP    reduce using rule 4 (function_declaration_list -> function_declaration .)
+    KEYWORD_INPUT   reduce using rule 4 (function_declaration_list -> function_declaration .)
+    KEYWORD_DEF     reduce using rule 4 (function_declaration_list -> function_declaration .)
+    IDENTIFIER      reduce using rule 4 (function_declaration_list -> function_declaration .)
+    OP_DEREF        reduce using rule 4 (function_declaration_list -> function_declaration .)
+
+
+state 2
+
+    (2) program -> function_declaration_list . command
+    (3) function_declaration_list -> function_declaration_list . function_declaration
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (6) function_declaration -> . KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    KEYWORD_DEF     shift and go to state 3
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    function_declaration           shift and go to state 14
+    dereferenced_variable          shift and go to state 8
+    command                        shift and go to state 15
+    variable                       shift and go to state 11
+
+state 3
+
+    (6) function_declaration -> KEYWORD_DEF . IDENTIFIER OP_CMP_EQ function_definition
+
+    IDENTIFIER      shift and go to state 16
+
+
+state 4
+
+    (0) S' -> program .
+
+
+
+state 5
+
+    (5) function_declaration_list -> empty .
+
+    KEYWORD_IF      reduce using rule 5 (function_declaration_list -> empty .)
+    KEYWORD_WHILE   reduce using rule 5 (function_declaration_list -> empty .)
+    KEYWORD_SKIP    reduce using rule 5 (function_declaration_list -> empty .)
+    KEYWORD_INPUT   reduce using rule 5 (function_declaration_list -> empty .)
+    KEYWORD_DEF     reduce using rule 5 (function_declaration_list -> empty .)
+    IDENTIFIER      reduce using rule 5 (function_declaration_list -> empty .)
+    OP_DEREF        reduce using rule 5 (function_declaration_list -> empty .)
+
+
+state 6
+
+    (18) command -> KEYWORD_INPUT . variable
+    (39) variable -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 9
+
+    variable                       shift and go to state 17
+
+state 7
+
+    (17) command -> KEYWORD_SKIP .
+
+    SEMI            reduce using rule 17 (command -> KEYWORD_SKIP .)
+    $end            reduce using rule 17 (command -> KEYWORD_SKIP .)
+    RBRACE          reduce using rule 17 (command -> KEYWORD_SKIP .)
+
+
+state 8
+
+    (14) command -> dereferenced_variable . OP_ASSIGNMENT assignment_rhs
+
+    OP_ASSIGNMENT   shift and go to state 18
+
+
+state 9
+
+    (39) variable -> IDENTIFIER .
+
+    RPAREN          reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_PLUS         reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_MINUS        reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_TIMES        reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_DIVIDE       reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_CMP_LT       reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_CMP_EQ       reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_CMP_NE       reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_CMP_LTE      reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_BOOL_AND     reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_BOOL_OR      reduce using rule 39 (variable -> IDENTIFIER .)
+    OP_ASSIGNMENT   reduce using rule 39 (variable -> IDENTIFIER .)
+    COMMA           reduce using rule 39 (variable -> IDENTIFIER .)
+    SEMI            reduce using rule 39 (variable -> IDENTIFIER .)
+    $end            reduce using rule 39 (variable -> IDENTIFIER .)
+    RBRACE          reduce using rule 39 (variable -> IDENTIFIER .)
+    LPAREN          reduce using rule 39 (variable -> IDENTIFIER .)
+
+
+state 10
+
+    (16) command -> KEYWORD_WHILE . LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+
+    LPAREN          shift and go to state 19
+
+
+state 11
+
+    (13) command -> variable . OP_ASSIGNMENT assignment_rhs
+
+    OP_ASSIGNMENT   shift and go to state 20
+
+
+state 12
+
+    (15) command -> KEYWORD_IF . LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+
+    LPAREN          shift and go to state 21
+
+
+state 13
+
+    (41) dereferenced_variable -> OP_DEREF . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 22
+
+
+state 14
+
+    (3) function_declaration_list -> function_declaration_list function_declaration .
+
+    KEYWORD_IF      reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    KEYWORD_WHILE   reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    KEYWORD_SKIP    reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    KEYWORD_INPUT   reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    KEYWORD_DEF     reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    IDENTIFIER      reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+    OP_DEREF        reduce using rule 3 (function_declaration_list -> function_declaration_list function_declaration .)
+
+
+state 15
+
+    (2) program -> function_declaration_list command .
+    (12) command -> command . SEMI command
+
+    $end            reduce using rule 2 (program -> function_declaration_list command .)
+    SEMI            shift and go to state 23
+
+
+state 16
+
+    (6) function_declaration -> KEYWORD_DEF IDENTIFIER . OP_CMP_EQ function_definition
+
+    OP_CMP_EQ       shift and go to state 24
+
+
+state 17
+
+    (18) command -> KEYWORD_INPUT variable .
+
+    SEMI            reduce using rule 18 (command -> KEYWORD_INPUT variable .)
+    $end            reduce using rule 18 (command -> KEYWORD_INPUT variable .)
+    RBRACE          reduce using rule 18 (command -> KEYWORD_INPUT variable .)
+
+
+state 18
+
+    (14) command -> dereferenced_variable OP_ASSIGNMENT . assignment_rhs
+    (20) assignment_rhs -> . KEYWORD_NEW type
+    (21) assignment_rhs -> . expression
+    (22) assignment_rhs -> . referenced_variable
+    (23) assignment_rhs -> . function_application
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (40) referenced_variable -> . KEYWORD_REF IDENTIFIER
+    (10) function_application -> . variable LPAREN variable_list RPAREN
+    (11) function_application -> . dereferenced_variable LPAREN variable_list RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    KEYWORD_NEW     shift and go to state 38
+    LPAREN          shift and go to state 35
+    KEYWORD_REF     shift and go to state 27
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    function_application           shift and go to state 26
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 29
+    referenced_variable            shift and go to state 30
+    bool                           shift and go to state 33
+    assignment_rhs                 shift and go to state 34
+    variable                       shift and go to state 36
+    expression                     shift and go to state 37
+
+state 19
+
+    (16) command -> KEYWORD_WHILE LPAREN . expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    LPAREN          shift and go to state 35
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 39
+    variable                       shift and go to state 40
+    bool                           shift and go to state 33
+    expression                     shift and go to state 41
+
+state 20
+
+    (13) command -> variable OP_ASSIGNMENT . assignment_rhs
+    (20) assignment_rhs -> . KEYWORD_NEW type
+    (21) assignment_rhs -> . expression
+    (22) assignment_rhs -> . referenced_variable
+    (23) assignment_rhs -> . function_application
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (40) referenced_variable -> . KEYWORD_REF IDENTIFIER
+    (10) function_application -> . variable LPAREN variable_list RPAREN
+    (11) function_application -> . dereferenced_variable LPAREN variable_list RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    KEYWORD_NEW     shift and go to state 38
+    LPAREN          shift and go to state 35
+    KEYWORD_REF     shift and go to state 27
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    function_application           shift and go to state 26
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 29
+    referenced_variable            shift and go to state 30
+    bool                           shift and go to state 33
+    assignment_rhs                 shift and go to state 42
+    variable                       shift and go to state 36
+    expression                     shift and go to state 37
+
+state 21
+
+    (15) command -> KEYWORD_IF LPAREN . expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    LPAREN          shift and go to state 35
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 39
+    variable                       shift and go to state 40
+    bool                           shift and go to state 33
+    expression                     shift and go to state 43
+
+state 22
+
+    (41) dereferenced_variable -> OP_DEREF IDENTIFIER .
+
+    OP_ASSIGNMENT   reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    RPAREN          reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_PLUS         reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_MINUS        reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_TIMES        reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_DIVIDE       reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_CMP_LT       reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_CMP_EQ       reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_CMP_NE       reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_CMP_LTE      reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_BOOL_AND     reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    OP_BOOL_OR      reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    LPAREN          reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    SEMI            reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    $end            reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+    RBRACE          reduce using rule 41 (dereferenced_variable -> OP_DEREF IDENTIFIER .)
+
+
+state 23
+
+    (12) command -> command SEMI . command
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    variable                       shift and go to state 11
+    command                        shift and go to state 44
+    dereferenced_variable          shift and go to state 8
+
+state 24
+
+    (6) function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ . function_definition
+    (7) function_definition -> . KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE
+
+    KEYWORD_FUN     shift and go to state 46
+
+    function_definition            shift and go to state 45
+
+state 25
+
+    (42) bool -> KEYWORD_TRUE .
+
+    RPAREN          reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_PLUS         reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_MINUS        reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_TIMES        reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_DIVIDE       reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_CMP_LT       reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_CMP_EQ       reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_CMP_NE       reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_CMP_LTE      reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_BOOL_AND     reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    OP_BOOL_OR      reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    SEMI            reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    $end            reduce using rule 42 (bool -> KEYWORD_TRUE .)
+    RBRACE          reduce using rule 42 (bool -> KEYWORD_TRUE .)
+
+
+state 26
+
+    (23) assignment_rhs -> function_application .
+
+    SEMI            reduce using rule 23 (assignment_rhs -> function_application .)
+    $end            reduce using rule 23 (assignment_rhs -> function_application .)
+    RBRACE          reduce using rule 23 (assignment_rhs -> function_application .)
+
+
+state 27
+
+    (40) referenced_variable -> KEYWORD_REF . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 47
+
+
+state 28
+
+    (33) expression -> number .
+
+    RPAREN          reduce using rule 33 (expression -> number .)
+    OP_PLUS         reduce using rule 33 (expression -> number .)
+    OP_MINUS        reduce using rule 33 (expression -> number .)
+    OP_TIMES        reduce using rule 33 (expression -> number .)
+    OP_DIVIDE       reduce using rule 33 (expression -> number .)
+    OP_CMP_LT       reduce using rule 33 (expression -> number .)
+    OP_CMP_EQ       reduce using rule 33 (expression -> number .)
+    OP_CMP_NE       reduce using rule 33 (expression -> number .)
+    OP_CMP_LTE      reduce using rule 33 (expression -> number .)
+    OP_BOOL_AND     reduce using rule 33 (expression -> number .)
+    OP_BOOL_OR      reduce using rule 33 (expression -> number .)
+    SEMI            reduce using rule 33 (expression -> number .)
+    $end            reduce using rule 33 (expression -> number .)
+    RBRACE          reduce using rule 33 (expression -> number .)
+
+
+state 29
+
+    (31) expression -> dereferenced_variable .
+    (11) function_application -> dereferenced_variable . LPAREN variable_list RPAREN
+
+    OP_PLUS         reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_MINUS        reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_TIMES        reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_DIVIDE       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_LT       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_EQ       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_NE       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_LTE      reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_BOOL_AND     reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_BOOL_OR      reduce using rule 31 (expression -> dereferenced_variable .)
+    SEMI            reduce using rule 31 (expression -> dereferenced_variable .)
+    $end            reduce using rule 31 (expression -> dereferenced_variable .)
+    RBRACE          reduce using rule 31 (expression -> dereferenced_variable .)
+    LPAREN          shift and go to state 48
+
+
+state 30
+
+    (22) assignment_rhs -> referenced_variable .
+
+    SEMI            reduce using rule 22 (assignment_rhs -> referenced_variable .)
+    $end            reduce using rule 22 (assignment_rhs -> referenced_variable .)
+    RBRACE          reduce using rule 22 (assignment_rhs -> referenced_variable .)
+
+
+state 31
+
+    (43) bool -> KEYWORD_FALSE .
+
+    RPAREN          reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_PLUS         reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_MINUS        reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_TIMES        reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_DIVIDE       reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_CMP_LT       reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_CMP_EQ       reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_CMP_NE       reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_CMP_LTE      reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_BOOL_AND     reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    OP_BOOL_OR      reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    SEMI            reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    $end            reduce using rule 43 (bool -> KEYWORD_FALSE .)
+    RBRACE          reduce using rule 43 (bool -> KEYWORD_FALSE .)
+
+
+state 32
+
+    (44) number -> NUMBER .
+
+    RPAREN          reduce using rule 44 (number -> NUMBER .)
+    OP_PLUS         reduce using rule 44 (number -> NUMBER .)
+    OP_MINUS        reduce using rule 44 (number -> NUMBER .)
+    OP_TIMES        reduce using rule 44 (number -> NUMBER .)
+    OP_DIVIDE       reduce using rule 44 (number -> NUMBER .)
+    OP_CMP_LT       reduce using rule 44 (number -> NUMBER .)
+    OP_CMP_EQ       reduce using rule 44 (number -> NUMBER .)
+    OP_CMP_NE       reduce using rule 44 (number -> NUMBER .)
+    OP_CMP_LTE      reduce using rule 44 (number -> NUMBER .)
+    OP_BOOL_AND     reduce using rule 44 (number -> NUMBER .)
+    OP_BOOL_OR      reduce using rule 44 (number -> NUMBER .)
+    SEMI            reduce using rule 44 (number -> NUMBER .)
+    $end            reduce using rule 44 (number -> NUMBER .)
+    RBRACE          reduce using rule 44 (number -> NUMBER .)
+
+
+state 33
+
+    (32) expression -> bool .
+
+    RPAREN          reduce using rule 32 (expression -> bool .)
+    OP_PLUS         reduce using rule 32 (expression -> bool .)
+    OP_MINUS        reduce using rule 32 (expression -> bool .)
+    OP_TIMES        reduce using rule 32 (expression -> bool .)
+    OP_DIVIDE       reduce using rule 32 (expression -> bool .)
+    OP_CMP_LT       reduce using rule 32 (expression -> bool .)
+    OP_CMP_EQ       reduce using rule 32 (expression -> bool .)
+    OP_CMP_NE       reduce using rule 32 (expression -> bool .)
+    OP_CMP_LTE      reduce using rule 32 (expression -> bool .)
+    OP_BOOL_AND     reduce using rule 32 (expression -> bool .)
+    OP_BOOL_OR      reduce using rule 32 (expression -> bool .)
+    SEMI            reduce using rule 32 (expression -> bool .)
+    $end            reduce using rule 32 (expression -> bool .)
+    RBRACE          reduce using rule 32 (expression -> bool .)
+
+
+state 34
+
+    (14) command -> dereferenced_variable OP_ASSIGNMENT assignment_rhs .
+
+    SEMI            reduce using rule 14 (command -> dereferenced_variable OP_ASSIGNMENT assignment_rhs .)
+    $end            reduce using rule 14 (command -> dereferenced_variable OP_ASSIGNMENT assignment_rhs .)
+    RBRACE          reduce using rule 14 (command -> dereferenced_variable OP_ASSIGNMENT assignment_rhs .)
+
+
+state 35
+
+    (35) expression -> LPAREN . expression operator expression RPAREN
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    LPAREN          shift and go to state 35
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 39
+    variable                       shift and go to state 40
+    bool                           shift and go to state 33
+    expression                     shift and go to state 49
+
+state 36
+
+    (30) expression -> variable .
+    (10) function_application -> variable . LPAREN variable_list RPAREN
+
+    OP_PLUS         reduce using rule 30 (expression -> variable .)
+    OP_MINUS        reduce using rule 30 (expression -> variable .)
+    OP_TIMES        reduce using rule 30 (expression -> variable .)
+    OP_DIVIDE       reduce using rule 30 (expression -> variable .)
+    OP_CMP_LT       reduce using rule 30 (expression -> variable .)
+    OP_CMP_EQ       reduce using rule 30 (expression -> variable .)
+    OP_CMP_NE       reduce using rule 30 (expression -> variable .)
+    OP_CMP_LTE      reduce using rule 30 (expression -> variable .)
+    OP_BOOL_AND     reduce using rule 30 (expression -> variable .)
+    OP_BOOL_OR      reduce using rule 30 (expression -> variable .)
+    SEMI            reduce using rule 30 (expression -> variable .)
+    $end            reduce using rule 30 (expression -> variable .)
+    RBRACE          reduce using rule 30 (expression -> variable .)
+    LPAREN          shift and go to state 50
+
+
+state 37
+
+    (21) assignment_rhs -> expression .
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+    SEMI            reduce using rule 21 (assignment_rhs -> expression .)
+    $end            reduce using rule 21 (assignment_rhs -> expression .)
+    RBRACE          reduce using rule 21 (assignment_rhs -> expression .)
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+    operator                       shift and go to state 60
+
+state 38
+
+    (20) assignment_rhs -> KEYWORD_NEW . type
+    (24) type -> . ref_type
+    (25) type -> . int_type
+    (26) type -> . bool_type
+    (27) ref_type -> . KEYWORD_REF type
+    (28) int_type -> . KEYWORD_INT
+    (29) bool_type -> . KEYWORD_BOOLEAN
+
+    KEYWORD_REF     shift and go to state 62
+    KEYWORD_INT     shift and go to state 63
+    KEYWORD_BOOLEAN shift and go to state 68
+
+    ref_type                       shift and go to state 65
+    type                           shift and go to state 66
+    bool_type                      shift and go to state 67
+    int_type                       shift and go to state 64
+
+state 39
+
+    (31) expression -> dereferenced_variable .
+
+    RPAREN          reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_PLUS         reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_MINUS        reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_TIMES        reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_DIVIDE       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_LT       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_EQ       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_NE       reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_CMP_LTE      reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_BOOL_AND     reduce using rule 31 (expression -> dereferenced_variable .)
+    OP_BOOL_OR      reduce using rule 31 (expression -> dereferenced_variable .)
+    SEMI            reduce using rule 31 (expression -> dereferenced_variable .)
+    $end            reduce using rule 31 (expression -> dereferenced_variable .)
+    RBRACE          reduce using rule 31 (expression -> dereferenced_variable .)
+
+
+state 40
+
+    (30) expression -> variable .
+
+    RPAREN          reduce using rule 30 (expression -> variable .)
+    OP_PLUS         reduce using rule 30 (expression -> variable .)
+    OP_MINUS        reduce using rule 30 (expression -> variable .)
+    OP_TIMES        reduce using rule 30 (expression -> variable .)
+    OP_DIVIDE       reduce using rule 30 (expression -> variable .)
+    OP_CMP_LT       reduce using rule 30 (expression -> variable .)
+    OP_CMP_EQ       reduce using rule 30 (expression -> variable .)
+    OP_CMP_NE       reduce using rule 30 (expression -> variable .)
+    OP_CMP_LTE      reduce using rule 30 (expression -> variable .)
+    OP_BOOL_AND     reduce using rule 30 (expression -> variable .)
+    OP_BOOL_OR      reduce using rule 30 (expression -> variable .)
+    SEMI            reduce using rule 30 (expression -> variable .)
+    $end            reduce using rule 30 (expression -> variable .)
+    RBRACE          reduce using rule 30 (expression -> variable .)
+
+
+state 41
+
+    (16) command -> KEYWORD_WHILE LPAREN expression . RPAREN KEYWORD_DO LBRACE command RBRACE
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+    RPAREN          shift and go to state 69
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+    operator                       shift and go to state 60
+
+state 42
+
+    (13) command -> variable OP_ASSIGNMENT assignment_rhs .
+
+    SEMI            reduce using rule 13 (command -> variable OP_ASSIGNMENT assignment_rhs .)
+    $end            reduce using rule 13 (command -> variable OP_ASSIGNMENT assignment_rhs .)
+    RBRACE          reduce using rule 13 (command -> variable OP_ASSIGNMENT assignment_rhs .)
+
+
+state 43
+
+    (15) command -> KEYWORD_IF LPAREN expression . RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+    RPAREN          shift and go to state 70
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+    operator                       shift and go to state 60
+
+state 44
+
+    (12) command -> command SEMI command .
+    (12) command -> command . SEMI command
+
+    SEMI            reduce using rule 12 (command -> command SEMI command .)
+    $end            reduce using rule 12 (command -> command SEMI command .)
+    RBRACE          reduce using rule 12 (command -> command SEMI command .)
+
+  ! SEMI            [ shift and go to state 23 ]
+
+
+state 45
+
+    (6) function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .
+
+    KEYWORD_IF      reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    KEYWORD_WHILE   reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    KEYWORD_SKIP    reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    KEYWORD_INPUT   reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    KEYWORD_DEF     reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    IDENTIFIER      reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+    OP_DEREF        reduce using rule 6 (function_declaration -> KEYWORD_DEF IDENTIFIER OP_CMP_EQ function_definition .)
+
+
+state 46
+
+    (7) function_definition -> KEYWORD_FUN . LPAREN variable_list RPAREN LBRACE function_body RBRACE
+
+    LPAREN          shift and go to state 71
+
+
+state 47
+
+    (40) referenced_variable -> KEYWORD_REF IDENTIFIER .
+
+    SEMI            reduce using rule 40 (referenced_variable -> KEYWORD_REF IDENTIFIER .)
+    $end            reduce using rule 40 (referenced_variable -> KEYWORD_REF IDENTIFIER .)
+    RBRACE          reduce using rule 40 (referenced_variable -> KEYWORD_REF IDENTIFIER .)
+
+
+state 48
+
+    (11) function_application -> dereferenced_variable LPAREN . variable_list RPAREN
+    (36) variable_list -> . variable_list COMMA variable
+    (37) variable_list -> . variable
+    (38) variable_list -> . empty
+    (39) variable -> . IDENTIFIER
+    (1) empty -> .
+
+    IDENTIFIER      shift and go to state 9
+    RPAREN          reduce using rule 1 (empty -> .)
+    COMMA           reduce using rule 1 (empty -> .)
+
+    variable                       shift and go to state 73
+    empty                          shift and go to state 72
+    variable_list                  shift and go to state 74
+
+state 49
+
+    (35) expression -> LPAREN expression . operator expression RPAREN
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+    operator                       shift and go to state 75
+
+state 50
+
+    (10) function_application -> variable LPAREN . variable_list RPAREN
+    (36) variable_list -> . variable_list COMMA variable
+    (37) variable_list -> . variable
+    (38) variable_list -> . empty
+    (39) variable -> . IDENTIFIER
+    (1) empty -> .
+
+    IDENTIFIER      shift and go to state 9
+    RPAREN          reduce using rule 1 (empty -> .)
+    COMMA           reduce using rule 1 (empty -> .)
+
+    variable                       shift and go to state 73
+    empty                          shift and go to state 72
+    variable_list                  shift and go to state 76
+
+state 51
+
+    (48) operator -> OP_DIVIDE .
+
+    LPAREN          reduce using rule 48 (operator -> OP_DIVIDE .)
+    IDENTIFIER      reduce using rule 48 (operator -> OP_DIVIDE .)
+    OP_DEREF        reduce using rule 48 (operator -> OP_DIVIDE .)
+    KEYWORD_TRUE    reduce using rule 48 (operator -> OP_DIVIDE .)
+    KEYWORD_FALSE   reduce using rule 48 (operator -> OP_DIVIDE .)
+    NUMBER          reduce using rule 48 (operator -> OP_DIVIDE .)
+
+
+state 52
+
+    (46) operator -> OP_MINUS .
+
+    LPAREN          reduce using rule 46 (operator -> OP_MINUS .)
+    IDENTIFIER      reduce using rule 46 (operator -> OP_MINUS .)
+    OP_DEREF        reduce using rule 46 (operator -> OP_MINUS .)
+    KEYWORD_TRUE    reduce using rule 46 (operator -> OP_MINUS .)
+    KEYWORD_FALSE   reduce using rule 46 (operator -> OP_MINUS .)
+    NUMBER          reduce using rule 46 (operator -> OP_MINUS .)
+
+
+state 53
+
+    (51) operator -> OP_CMP_NE .
+
+    LPAREN          reduce using rule 51 (operator -> OP_CMP_NE .)
+    IDENTIFIER      reduce using rule 51 (operator -> OP_CMP_NE .)
+    OP_DEREF        reduce using rule 51 (operator -> OP_CMP_NE .)
+    KEYWORD_TRUE    reduce using rule 51 (operator -> OP_CMP_NE .)
+    KEYWORD_FALSE   reduce using rule 51 (operator -> OP_CMP_NE .)
+    NUMBER          reduce using rule 51 (operator -> OP_CMP_NE .)
+
+
+state 54
+
+    (47) operator -> OP_TIMES .
+
+    LPAREN          reduce using rule 47 (operator -> OP_TIMES .)
+    IDENTIFIER      reduce using rule 47 (operator -> OP_TIMES .)
+    OP_DEREF        reduce using rule 47 (operator -> OP_TIMES .)
+    KEYWORD_TRUE    reduce using rule 47 (operator -> OP_TIMES .)
+    KEYWORD_FALSE   reduce using rule 47 (operator -> OP_TIMES .)
+    NUMBER          reduce using rule 47 (operator -> OP_TIMES .)
+
+
+state 55
+
+    (50) operator -> OP_CMP_EQ .
+
+    LPAREN          reduce using rule 50 (operator -> OP_CMP_EQ .)
+    IDENTIFIER      reduce using rule 50 (operator -> OP_CMP_EQ .)
+    OP_DEREF        reduce using rule 50 (operator -> OP_CMP_EQ .)
+    KEYWORD_TRUE    reduce using rule 50 (operator -> OP_CMP_EQ .)
+    KEYWORD_FALSE   reduce using rule 50 (operator -> OP_CMP_EQ .)
+    NUMBER          reduce using rule 50 (operator -> OP_CMP_EQ .)
+
+
+state 56
+
+    (49) operator -> OP_CMP_LT .
+
+    LPAREN          reduce using rule 49 (operator -> OP_CMP_LT .)
+    IDENTIFIER      reduce using rule 49 (operator -> OP_CMP_LT .)
+    OP_DEREF        reduce using rule 49 (operator -> OP_CMP_LT .)
+    KEYWORD_TRUE    reduce using rule 49 (operator -> OP_CMP_LT .)
+    KEYWORD_FALSE   reduce using rule 49 (operator -> OP_CMP_LT .)
+    NUMBER          reduce using rule 49 (operator -> OP_CMP_LT .)
+
+
+state 57
+
+    (52) operator -> OP_CMP_LTE .
+
+    LPAREN          reduce using rule 52 (operator -> OP_CMP_LTE .)
+    IDENTIFIER      reduce using rule 52 (operator -> OP_CMP_LTE .)
+    OP_DEREF        reduce using rule 52 (operator -> OP_CMP_LTE .)
+    KEYWORD_TRUE    reduce using rule 52 (operator -> OP_CMP_LTE .)
+    KEYWORD_FALSE   reduce using rule 52 (operator -> OP_CMP_LTE .)
+    NUMBER          reduce using rule 52 (operator -> OP_CMP_LTE .)
+
+
+state 58
+
+    (45) operator -> OP_PLUS .
+
+    LPAREN          reduce using rule 45 (operator -> OP_PLUS .)
+    IDENTIFIER      reduce using rule 45 (operator -> OP_PLUS .)
+    OP_DEREF        reduce using rule 45 (operator -> OP_PLUS .)
+    KEYWORD_TRUE    reduce using rule 45 (operator -> OP_PLUS .)
+    KEYWORD_FALSE   reduce using rule 45 (operator -> OP_PLUS .)
+    NUMBER          reduce using rule 45 (operator -> OP_PLUS .)
+
+
+state 59
+
+    (54) operator -> OP_BOOL_OR .
+
+    LPAREN          reduce using rule 54 (operator -> OP_BOOL_OR .)
+    IDENTIFIER      reduce using rule 54 (operator -> OP_BOOL_OR .)
+    OP_DEREF        reduce using rule 54 (operator -> OP_BOOL_OR .)
+    KEYWORD_TRUE    reduce using rule 54 (operator -> OP_BOOL_OR .)
+    KEYWORD_FALSE   reduce using rule 54 (operator -> OP_BOOL_OR .)
+    NUMBER          reduce using rule 54 (operator -> OP_BOOL_OR .)
+
+
+state 60
+
+    (34) expression -> expression operator . expression
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    LPAREN          shift and go to state 35
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 39
+    variable                       shift and go to state 40
+    bool                           shift and go to state 33
+    expression                     shift and go to state 77
+
+state 61
+
+    (53) operator -> OP_BOOL_AND .
+
+    LPAREN          reduce using rule 53 (operator -> OP_BOOL_AND .)
+    IDENTIFIER      reduce using rule 53 (operator -> OP_BOOL_AND .)
+    OP_DEREF        reduce using rule 53 (operator -> OP_BOOL_AND .)
+    KEYWORD_TRUE    reduce using rule 53 (operator -> OP_BOOL_AND .)
+    KEYWORD_FALSE   reduce using rule 53 (operator -> OP_BOOL_AND .)
+    NUMBER          reduce using rule 53 (operator -> OP_BOOL_AND .)
+
+
+state 62
+
+    (27) ref_type -> KEYWORD_REF . type
+    (24) type -> . ref_type
+    (25) type -> . int_type
+    (26) type -> . bool_type
+    (27) ref_type -> . KEYWORD_REF type
+    (28) int_type -> . KEYWORD_INT
+    (29) bool_type -> . KEYWORD_BOOLEAN
+
+    KEYWORD_REF     shift and go to state 62
+    KEYWORD_INT     shift and go to state 63
+    KEYWORD_BOOLEAN shift and go to state 68
+
+    ref_type                       shift and go to state 65
+    type                           shift and go to state 78
+    bool_type                      shift and go to state 67
+    int_type                       shift and go to state 64
+
+state 63
+
+    (28) int_type -> KEYWORD_INT .
+
+    SEMI            reduce using rule 28 (int_type -> KEYWORD_INT .)
+    $end            reduce using rule 28 (int_type -> KEYWORD_INT .)
+    RBRACE          reduce using rule 28 (int_type -> KEYWORD_INT .)
+
+
+state 64
+
+    (25) type -> int_type .
+
+    SEMI            reduce using rule 25 (type -> int_type .)
+    $end            reduce using rule 25 (type -> int_type .)
+    RBRACE          reduce using rule 25 (type -> int_type .)
+
+
+state 65
+
+    (24) type -> ref_type .
+
+    SEMI            reduce using rule 24 (type -> ref_type .)
+    $end            reduce using rule 24 (type -> ref_type .)
+    RBRACE          reduce using rule 24 (type -> ref_type .)
+
+
+state 66
+
+    (20) assignment_rhs -> KEYWORD_NEW type .
+
+    SEMI            reduce using rule 20 (assignment_rhs -> KEYWORD_NEW type .)
+    $end            reduce using rule 20 (assignment_rhs -> KEYWORD_NEW type .)
+    RBRACE          reduce using rule 20 (assignment_rhs -> KEYWORD_NEW type .)
+
+
+state 67
+
+    (26) type -> bool_type .
+
+    SEMI            reduce using rule 26 (type -> bool_type .)
+    $end            reduce using rule 26 (type -> bool_type .)
+    RBRACE          reduce using rule 26 (type -> bool_type .)
+
+
+state 68
+
+    (29) bool_type -> KEYWORD_BOOLEAN .
+
+    SEMI            reduce using rule 29 (bool_type -> KEYWORD_BOOLEAN .)
+    $end            reduce using rule 29 (bool_type -> KEYWORD_BOOLEAN .)
+    RBRACE          reduce using rule 29 (bool_type -> KEYWORD_BOOLEAN .)
+
+
+state 69
+
+    (16) command -> KEYWORD_WHILE LPAREN expression RPAREN . KEYWORD_DO LBRACE command RBRACE
+
+    KEYWORD_DO      shift and go to state 79
+
+
+state 70
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN . KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+
+    KEYWORD_THEN    shift and go to state 80
+
+
+state 71
+
+    (7) function_definition -> KEYWORD_FUN LPAREN . variable_list RPAREN LBRACE function_body RBRACE
+    (36) variable_list -> . variable_list COMMA variable
+    (37) variable_list -> . variable
+    (38) variable_list -> . empty
+    (39) variable -> . IDENTIFIER
+    (1) empty -> .
+
+    IDENTIFIER      shift and go to state 9
+    RPAREN          reduce using rule 1 (empty -> .)
+    COMMA           reduce using rule 1 (empty -> .)
+
+    variable                       shift and go to state 73
+    empty                          shift and go to state 72
+    variable_list                  shift and go to state 81
+
+state 72
+
+    (38) variable_list -> empty .
+
+    RPAREN          reduce using rule 38 (variable_list -> empty .)
+    COMMA           reduce using rule 38 (variable_list -> empty .)
+
+
+state 73
+
+    (37) variable_list -> variable .
+
+    RPAREN          reduce using rule 37 (variable_list -> variable .)
+    COMMA           reduce using rule 37 (variable_list -> variable .)
+
+
+state 74
+
+    (11) function_application -> dereferenced_variable LPAREN variable_list . RPAREN
+    (36) variable_list -> variable_list . COMMA variable
+
+    RPAREN          shift and go to state 82
+    COMMA           shift and go to state 83
+
+
+state 75
+
+    (35) expression -> LPAREN expression operator . expression RPAREN
+    (34) expression -> expression operator . expression
+    (30) expression -> . variable
+    (31) expression -> . dereferenced_variable
+    (32) expression -> . bool
+    (33) expression -> . number
+    (34) expression -> . expression operator expression
+    (35) expression -> . LPAREN expression operator expression RPAREN
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+    (42) bool -> . KEYWORD_TRUE
+    (43) bool -> . KEYWORD_FALSE
+    (44) number -> . NUMBER
+
+    LPAREN          shift and go to state 35
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+    KEYWORD_TRUE    shift and go to state 25
+    KEYWORD_FALSE   shift and go to state 31
+    NUMBER          shift and go to state 32
+
+    number                         shift and go to state 28
+    dereferenced_variable          shift and go to state 39
+    variable                       shift and go to state 40
+    bool                           shift and go to state 33
+    expression                     shift and go to state 84
+
+state 76
+
+    (10) function_application -> variable LPAREN variable_list . RPAREN
+    (36) variable_list -> variable_list . COMMA variable
+
+    RPAREN          shift and go to state 85
+    COMMA           shift and go to state 83
+
+
+state 77
+
+    (34) expression -> expression operator expression .
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+  ! shift/reduce conflict for OP_PLUS resolved as shift
+  ! shift/reduce conflict for OP_MINUS resolved as shift
+  ! shift/reduce conflict for OP_TIMES resolved as shift
+  ! shift/reduce conflict for OP_DIVIDE resolved as shift
+  ! shift/reduce conflict for OP_CMP_LT resolved as shift
+  ! shift/reduce conflict for OP_CMP_EQ resolved as shift
+  ! shift/reduce conflict for OP_CMP_NE resolved as shift
+  ! shift/reduce conflict for OP_CMP_LTE resolved as shift
+  ! shift/reduce conflict for OP_BOOL_AND resolved as shift
+  ! shift/reduce conflict for OP_BOOL_OR resolved as shift
+    RPAREN          reduce using rule 34 (expression -> expression operator expression .)
+    SEMI            reduce using rule 34 (expression -> expression operator expression .)
+    $end            reduce using rule 34 (expression -> expression operator expression .)
+    RBRACE          reduce using rule 34 (expression -> expression operator expression .)
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+  ! OP_PLUS         [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_MINUS        [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_TIMES        [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_DIVIDE       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_LT       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_EQ       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_NE       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_LTE      [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_BOOL_AND     [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_BOOL_OR      [ reduce using rule 34 (expression -> expression operator expression .) ]
+
+    operator                       shift and go to state 60
+
+state 78
+
+    (27) ref_type -> KEYWORD_REF type .
+
+    SEMI            reduce using rule 27 (ref_type -> KEYWORD_REF type .)
+    $end            reduce using rule 27 (ref_type -> KEYWORD_REF type .)
+    RBRACE          reduce using rule 27 (ref_type -> KEYWORD_REF type .)
+
+
+state 79
+
+    (16) command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO . LBRACE command RBRACE
+
+    LBRACE          shift and go to state 86
+
+
+state 80
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN . LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+
+    LBRACE          shift and go to state 87
+
+
+state 81
+
+    (7) function_definition -> KEYWORD_FUN LPAREN variable_list . RPAREN LBRACE function_body RBRACE
+    (36) variable_list -> variable_list . COMMA variable
+
+    RPAREN          shift and go to state 88
+    COMMA           shift and go to state 83
+
+
+state 82
+
+    (11) function_application -> dereferenced_variable LPAREN variable_list RPAREN .
+
+    SEMI            reduce using rule 11 (function_application -> dereferenced_variable LPAREN variable_list RPAREN .)
+    $end            reduce using rule 11 (function_application -> dereferenced_variable LPAREN variable_list RPAREN .)
+    RBRACE          reduce using rule 11 (function_application -> dereferenced_variable LPAREN variable_list RPAREN .)
+
+
+state 83
+
+    (36) variable_list -> variable_list COMMA . variable
+    (39) variable -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 9
+
+    variable                       shift and go to state 89
+
+state 84
+
+    (35) expression -> LPAREN expression operator expression . RPAREN
+    (34) expression -> expression operator expression .
+    (34) expression -> expression . operator expression
+    (45) operator -> . OP_PLUS
+    (46) operator -> . OP_MINUS
+    (47) operator -> . OP_TIMES
+    (48) operator -> . OP_DIVIDE
+    (49) operator -> . OP_CMP_LT
+    (50) operator -> . OP_CMP_EQ
+    (51) operator -> . OP_CMP_NE
+    (52) operator -> . OP_CMP_LTE
+    (53) operator -> . OP_BOOL_AND
+    (54) operator -> . OP_BOOL_OR
+
+  ! shift/reduce conflict for OP_PLUS resolved as shift
+  ! shift/reduce conflict for OP_MINUS resolved as shift
+  ! shift/reduce conflict for OP_TIMES resolved as shift
+  ! shift/reduce conflict for OP_DIVIDE resolved as shift
+  ! shift/reduce conflict for OP_CMP_LT resolved as shift
+  ! shift/reduce conflict for OP_CMP_EQ resolved as shift
+  ! shift/reduce conflict for OP_CMP_NE resolved as shift
+  ! shift/reduce conflict for OP_CMP_LTE resolved as shift
+  ! shift/reduce conflict for OP_BOOL_AND resolved as shift
+  ! shift/reduce conflict for OP_BOOL_OR resolved as shift
+    RPAREN          shift and go to state 90
+    OP_PLUS         shift and go to state 58
+    OP_MINUS        shift and go to state 52
+    OP_TIMES        shift and go to state 54
+    OP_DIVIDE       shift and go to state 51
+    OP_CMP_LT       shift and go to state 56
+    OP_CMP_EQ       shift and go to state 55
+    OP_CMP_NE       shift and go to state 53
+    OP_CMP_LTE      shift and go to state 57
+    OP_BOOL_AND     shift and go to state 61
+    OP_BOOL_OR      shift and go to state 59
+
+  ! OP_PLUS         [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_MINUS        [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_TIMES        [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_DIVIDE       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_LT       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_EQ       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_NE       [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_CMP_LTE      [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_BOOL_AND     [ reduce using rule 34 (expression -> expression operator expression .) ]
+  ! OP_BOOL_OR      [ reduce using rule 34 (expression -> expression operator expression .) ]
+
+    operator                       shift and go to state 60
+
+state 85
+
+    (10) function_application -> variable LPAREN variable_list RPAREN .
+
+    SEMI            reduce using rule 10 (function_application -> variable LPAREN variable_list RPAREN .)
+    $end            reduce using rule 10 (function_application -> variable LPAREN variable_list RPAREN .)
+    RBRACE          reduce using rule 10 (function_application -> variable LPAREN variable_list RPAREN .)
+
+
+state 86
+
+    (16) command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE . command RBRACE
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    variable                       shift and go to state 11
+    command                        shift and go to state 91
+    dereferenced_variable          shift and go to state 8
+
+state 87
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE . command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    variable                       shift and go to state 11
+    command                        shift and go to state 92
+    dereferenced_variable          shift and go to state 8
+
+state 88
+
+    (7) function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN . LBRACE function_body RBRACE
+
+    LBRACE          shift and go to state 93
+
+
+state 89
+
+    (36) variable_list -> variable_list COMMA variable .
+
+    RPAREN          reduce using rule 36 (variable_list -> variable_list COMMA variable .)
+    COMMA           reduce using rule 36 (variable_list -> variable_list COMMA variable .)
+
+
+state 90
+
+    (35) expression -> LPAREN expression operator expression RPAREN .
+
+    RPAREN          reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_PLUS         reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_MINUS        reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_TIMES        reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_DIVIDE       reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_CMP_LT       reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_CMP_EQ       reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_CMP_NE       reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_CMP_LTE      reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_BOOL_AND     reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    OP_BOOL_OR      reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    SEMI            reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    $end            reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+    RBRACE          reduce using rule 35 (expression -> LPAREN expression operator expression RPAREN .)
+
+
+state 91
+
+    (16) command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command . RBRACE
+    (12) command -> command . SEMI command
+
+    RBRACE          shift and go to state 94
+    SEMI            shift and go to state 23
+
+
+state 92
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command . RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (12) command -> command . SEMI command
+
+    RBRACE          shift and go to state 95
+    SEMI            shift and go to state 23
+
+
+state 93
+
+    (7) function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE . function_body RBRACE
+    (8) function_body -> . command SEMI command_return
+    (9) function_body -> . command_return
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (19) command_return -> . KEYWORD_RETURN variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    KEYWORD_RETURN  shift and go to state 98
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    dereferenced_variable          shift and go to state 8
+    command                        shift and go to state 99
+    variable                       shift and go to state 11
+    function_body                  shift and go to state 96
+    command_return                 shift and go to state 97
+
+state 94
+
+    (16) command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE .
+
+    SEMI            reduce using rule 16 (command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE .)
+    $end            reduce using rule 16 (command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE .)
+    RBRACE          reduce using rule 16 (command -> KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE .)
+
+
+state 95
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE . KEYWORD_ELSE LBRACE command RBRACE
+
+    KEYWORD_ELSE    shift and go to state 100
+
+
+state 96
+
+    (7) function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body . RBRACE
+
+    RBRACE          shift and go to state 101
+
+
+state 97
+
+    (9) function_body -> command_return .
+
+    RBRACE          reduce using rule 9 (function_body -> command_return .)
+
+
+state 98
+
+    (19) command_return -> KEYWORD_RETURN . variable
+    (39) variable -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 9
+
+    variable                       shift and go to state 102
+
+state 99
+
+    (8) function_body -> command . SEMI command_return
+    (12) command -> command . SEMI command
+
+    SEMI            shift and go to state 103
+
+
+state 100
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE . LBRACE command RBRACE
+
+    LBRACE          shift and go to state 104
+
+
+state 101
+
+    (7) function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .
+
+    KEYWORD_IF      reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    KEYWORD_WHILE   reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    KEYWORD_SKIP    reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    KEYWORD_INPUT   reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    KEYWORD_DEF     reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    IDENTIFIER      reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+    OP_DEREF        reduce using rule 7 (function_definition -> KEYWORD_FUN LPAREN variable_list RPAREN LBRACE function_body RBRACE .)
+
+
+state 102
+
+    (19) command_return -> KEYWORD_RETURN variable .
+
+    RBRACE          reduce using rule 19 (command_return -> KEYWORD_RETURN variable .)
+
+
+state 103
+
+    (8) function_body -> command SEMI . command_return
+    (12) command -> command SEMI . command
+    (19) command_return -> . KEYWORD_RETURN variable
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_RETURN  shift and go to state 98
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    dereferenced_variable          shift and go to state 8
+    command                        shift and go to state 44
+    variable                       shift and go to state 11
+    command_return                 shift and go to state 105
+
+state 104
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE . command RBRACE
+    (12) command -> . command SEMI command
+    (13) command -> . variable OP_ASSIGNMENT assignment_rhs
+    (14) command -> . dereferenced_variable OP_ASSIGNMENT assignment_rhs
+    (15) command -> . KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE
+    (16) command -> . KEYWORD_WHILE LPAREN expression RPAREN KEYWORD_DO LBRACE command RBRACE
+    (17) command -> . KEYWORD_SKIP
+    (18) command -> . KEYWORD_INPUT variable
+    (39) variable -> . IDENTIFIER
+    (41) dereferenced_variable -> . OP_DEREF IDENTIFIER
+
+    KEYWORD_IF      shift and go to state 12
+    KEYWORD_WHILE   shift and go to state 10
+    KEYWORD_SKIP    shift and go to state 7
+    KEYWORD_INPUT   shift and go to state 6
+    IDENTIFIER      shift and go to state 9
+    OP_DEREF        shift and go to state 13
+
+    variable                       shift and go to state 11
+    command                        shift and go to state 106
+    dereferenced_variable          shift and go to state 8
+
+state 105
+
+    (8) function_body -> command SEMI command_return .
+
+    RBRACE          reduce using rule 8 (function_body -> command SEMI command_return .)
+
+
+state 106
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command . RBRACE
+    (12) command -> command . SEMI command
+
+    RBRACE          shift and go to state 107
+    SEMI            shift and go to state 23
+
+
+state 107
+
+    (15) command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE .
+
+    SEMI            reduce using rule 15 (command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE .)
+    $end            reduce using rule 15 (command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE .)
+    RBRACE          reduce using rule 15 (command -> KEYWORD_IF LPAREN expression RPAREN KEYWORD_THEN LBRACE command RBRACE KEYWORD_ELSE LBRACE command RBRACE .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for KEYWORD_DEF in state 0 resolved as shift
+WARNING: shift/reduce conflict for OP_PLUS in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_MINUS in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_TIMES in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_DIVIDE in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_LT in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_EQ in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_NE in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_LTE in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_BOOL_AND in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_BOOL_OR in state 77 resolved as shift
+WARNING: shift/reduce conflict for OP_PLUS in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_MINUS in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_TIMES in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_DIVIDE in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_LT in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_EQ in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_NE in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_CMP_LTE in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_BOOL_AND in state 84 resolved as shift
+WARNING: shift/reduce conflict for OP_BOOL_OR in state 84 resolved as shift

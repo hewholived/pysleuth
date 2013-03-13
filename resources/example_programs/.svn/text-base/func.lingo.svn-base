@@ -1,0 +1,13 @@
+def fact = fun(x){
+	if ( x < 2 ) then{
+		result := 1
+	} else {
+		result := x - 1;
+		result := fact(recurse);
+		result := recurse * x
+	};
+	return result
+}
+
+num := 15;
+result := fact(num)

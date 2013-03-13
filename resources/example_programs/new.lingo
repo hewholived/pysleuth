@@ -1,0 +1,12 @@
+/*
+	Example program illustrating how new can be used allocate
+	space on the heap (in a real program).
+*/
+allocate_number := 32;
+while(0 <= allocate_number) do{
+	t1 := new integer;
+	!t1 := allocate_number;
+	t2 := new ref integer;
+	!t2 := t1;
+	allocate_number := allocate_number - 1
+}

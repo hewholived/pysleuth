@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/18/trunk/resources/example_programs
+END
+simple.lingo
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/resources/example_programs/simple.lingo
+END
+new.lingo
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/18/trunk/resources/example_programs/new.lingo
+END
+func.lingo
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/9/trunk/resources/example_programs/func.lingo
+END
+param.lingo
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/18/trunk/resources/example_programs/param.lingo
+END
+looping.lingo
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/9/trunk/resources/example_programs/looping.lingo
+END

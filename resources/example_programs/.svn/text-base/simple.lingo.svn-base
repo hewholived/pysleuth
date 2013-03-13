@@ -1,0 +1,7 @@
+
+def square = fun( x ) { result := x * x; return result }
+def cube = fun( x ) { result := x * x * x; return result }
+
+value := 4;
+squared := square(value);
+cubed := cube(value)

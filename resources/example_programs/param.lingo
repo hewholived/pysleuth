@@ -1,0 +1,27 @@
+/*
+	Example program illustrating functions with both 0 and multiple arguments.
+*/
+def pow = fun(x, n){
+	if(1 <= n) then{
+		temp := n-1;
+		ret := pow(x,temp);
+		ret := ret * x
+	}
+	else{
+		ret := 1
+	};
+	return ret
+}
+def posInput = fun(){
+	input x;
+	if(x < 0) then{
+		ret := 0
+	}
+	else{
+		ret := x
+	};
+	return ret
+}
+x := posInput();
+n := posInput();
+result := pow(x,n)

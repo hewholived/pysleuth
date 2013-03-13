@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/10/trunk/src/sleuth/evidence/gui
+END
+new_analysis_dialog.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2/trunk/src/sleuth/evidence/gui/new_analysis_dialog.py
+END
+main_window.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/src/sleuth/evidence/gui/main_window.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2/trunk/src/sleuth/evidence/gui/__init__.py
+END
+cfg_widget.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3/trunk/src/sleuth/evidence/gui/cfg_widget.py
+END
+application.py
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/10/trunk/src/sleuth/evidence/gui/application.py
+END
+autoLayout.py
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/2/trunk/src/sleuth/evidence/gui/autoLayout.py
+END
