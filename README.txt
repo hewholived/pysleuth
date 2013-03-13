@@ -2,7 +2,7 @@ PySleuth is an interactive tool that aids in understanding the behavior
 of static analyses written in Python. 
 
 Original Author: Chris Phillips
-Additional Maintainers: Kyle Klein, Vineeth Kashyap and Madhukar N Kedlaya
+Additional Maintainers: Kyle Dewey and Madhukar N Kedlaya
 
 PySleuth was originally developed as part of a research effort at UCSB during
 the Spring 2010 quarter.
